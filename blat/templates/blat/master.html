@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'blat/style.css' %}">
+	<title>{% block title %}Blather: News{% endblock title %}</title>
+</head>
+
+<body>
+	<header>
+		<h1><a href="{% url 'homepage' %}">Blather App</a></h1>
+	</header>
+    <ul>
+    {% if user.is_authenticated %}
+        <li>Logged in as: {{ user }}. {{ user.profile.bio }}</li>
+        <li><a href="{% url 'newblat' %}">Add a Blat</a></li>
+        <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
+        <li><a href="{% url 'myview' %}">My Blats</a></li>
+    {% else %}
+        <li><a href="{% url 'login' %}?next=/">Login</a></li>
+    {%  endif %}
+	<div id="content">
+		{% block content %}
+			
+		{% endblock content %}
+	</div>
+    </ul>
+</body>
+</html>
+
+
